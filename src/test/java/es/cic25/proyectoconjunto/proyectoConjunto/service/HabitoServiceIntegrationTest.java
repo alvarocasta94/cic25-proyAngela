@@ -1,4 +1,4 @@
-package es.cic25.proyectoconjunto.proyectoConjunto.controller;
+package es.cic25.proyectoconjunto.proyectoConjunto.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,10 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
 
 @SpringBootTest
-public class HabitoControllerTest {
+public class HabitoServiceIntegrationTest {
 
     @Autowired
-    private HabitoController habitoController;
+    private HabitoService habitoService;
 
     @Test
     void testCreatePostman() {
@@ -22,7 +22,7 @@ public class HabitoControllerTest {
         Habito habito = new Habito();
         habito.setNombre("habito");
 
-        Habito habito2 = habitoController.create(habito);
+        Habito habito2 = habitoService.create(habito);
 
         // habitoController.
         assertEquals(nombreHabito, habito2.getNombre());

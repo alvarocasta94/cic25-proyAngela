@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.cic25.proyectoconjunto.proyectoConjunto.model.Categoria;
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
 import es.cic25.proyectoconjunto.proyectoConjunto.service.HabitoService;
 

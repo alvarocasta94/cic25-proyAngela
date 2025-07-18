@@ -102,9 +102,8 @@ public class Habito {
         if (getClass() != obj.getClass())
             return false;
         Habito other = (Habito) obj;
-        if (id != other.id)
+        if (id != other.getId())
             return false;
         return true;
     }
- 
 }
