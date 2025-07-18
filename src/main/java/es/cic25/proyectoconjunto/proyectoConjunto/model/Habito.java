@@ -11,16 +11,16 @@ import jakarta.persistence.Id;
 public class Habito {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    private long id;
 
-    public String nombre;
-    public String descripcion;
-    public LocalDate fechaInicio;
-    public boolean estado;
+    private String nombre;
+    private String descripcion;
+    private LocalDate fechaInicio;
+    private boolean estado;
 
-    public Categoria categoria;
+    private Categoria categoria;
 
-    public LocalDate[] fechasCompletadas;
+    private LocalDate[] fechasCompletadas;
 
     // Getter y setter
     public String getNombre() {
@@ -83,4 +83,28 @@ public class Habito {
     public String toString() {
         return "Habito [id=" + id + ", nombre=" + nombre + ", estado=" + estado  + ", categoria=" + categoria + "]";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    //Método equals que comprueba si dos objetos son el mismo en función de si su id es igual o no
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Habito other = (Habito) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+ 
 }
