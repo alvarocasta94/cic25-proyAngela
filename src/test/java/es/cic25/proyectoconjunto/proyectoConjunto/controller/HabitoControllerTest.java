@@ -24,7 +24,6 @@ public class HabitoControllerTest {
 
         Habito habito2 = habitoController.create(habito);
 
-        // habitoController.
         assertEquals(nombreHabito, habito2.getNombre());
     }
 

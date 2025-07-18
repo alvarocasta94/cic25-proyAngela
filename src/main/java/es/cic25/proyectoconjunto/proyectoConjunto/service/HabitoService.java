@@ -2,6 +2,8 @@ package es.cic25.proyectoconjunto.proyectoConjunto.service;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,11 @@ public class HabitoService {
     @Autowired
     private IHabitoRepository iHabitoRepository;
 
-    private long contador;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HabitoService.class);
 
     public Optional<Habito> get(long id) {
 
-        Optional<Habito> habito = Optional.ofNullable(iHabitoRepository.findById(id).orElse(null));
+        Optional<Habito> habito = iHabitoRepository.findById(id);
 
         return habito;
     }
