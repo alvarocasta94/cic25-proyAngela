@@ -1,4 +1,4 @@
-package es.cic25.proyectoconjunto.proyectoConjunto;
+package es.cic25.proyectoconjunto.proyectoConjunto.model;
 
 public enum Categoria {
         SALUD,

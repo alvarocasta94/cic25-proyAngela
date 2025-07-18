@@ -219,7 +219,7 @@ elif set_java_home; then
   "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"
 fi
 
-# If specified, validate the SHA-256 sum of the Maven distribution zip file
+# If specified, valiLocalDate the SHA-256 sum of the Maven distribution zip file
 if [ -n "${distributionSha256Sum-}" ]; then
   distributionSha256Result=false
   if [ "$MVN_CMD" = mvnd.sh ]; then
@@ -240,8 +240,8 @@ if [ -n "${distributionSha256Sum-}" ]; then
     exit 1
   fi
   if [ $distributionSha256Result = false ]; then
-    echo "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised." >&2
-    echo "If you updated your Maven version, you need to update the specified distributionSha256Sum property." >&2
+    echo "Error: Failed to valiLocalDate Maven distribution SHA-256, your Maven distribution might be compromised." >&2
+    echo "If you upLocalDated your Maven version, you need to upLocalDate the specified distributionSha256Sum property." >&2
     exit 1
   fi
 fi

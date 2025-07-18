@@ -1,9 +1,7 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
-import es.cic25.proyectoconjunto.proyectoConjunto.Categoria;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,23 +11,21 @@ import jakarta.persistence.Id;
 public class Habito {
 
     // ATRIBUTOS
-    public String nombre;
-    public String descripcion;
-    public LocalDate fechaInicio;
-    public boolean estado;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
+    public String nombre;
+    public String descripcion;
+    public LocalDate fechaInicio;
+    public boolean estado;
+
     public Categoria categoria;
 
-    public Date ultimaFechaCompletada;
+    public LocalDate[] fechasCompletadas;
 
-    public Date[] fechasCompletadas;
-
-    
-    //Getter y setter
+    // Getter y setter
 
     public String getNombre() {
         return nombre;
@@ -79,20 +75,11 @@ public class Habito {
         this.categoria = categoria;
     }
 
-    public Date getUltimaFechaCompletada() {
-        return ultimaFechaCompletada;
-    }
-
-    public void setUltimaFechaCompletada(Date ultimaFechaCompletada) {
-        this.ultimaFechaCompletada = ultimaFechaCompletada;
-    }
-
-    public Date[] getFechasCompletadas() {
+    public LocalDate[] getFechasCompletadas() {
         return fechasCompletadas;
     }
 
-    public void setFechasCompletadas(Date[] fechasCompletadas) {
+    public void setFechasCompletadas(LocalDate[] fechasCompletadas) {
         this.fechasCompletadas = fechasCompletadas;
     }
-   
 }

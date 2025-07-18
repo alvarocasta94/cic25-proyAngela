@@ -2,15 +2,10 @@ package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import es.cic25.proyectoconjunto.proyectoConjunto.Categoria;
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
 
 @SpringBootTest
@@ -31,15 +26,6 @@ public class HabitoControllerTest {
 
         // habitoController.
         assertEquals(nombreHabito, habito2.getNombre());
-    }
-
-    
-
-   
-
-    @Test
-    void testUpdate() {
-
     }
 
 }

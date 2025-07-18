@@ -1,10 +1,8 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import javax.net.ssl.SSLEngineResult.Status;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.cic25.proyectoconjunto.proyectoConjunto.Categoria;
+import es.cic25.proyectoconjunto.proyectoConjunto.model.Categoria;
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
 
 @SpringBootTest
@@ -73,7 +71,7 @@ public class HabitoControllerIntegrationTest {
         mockMvc.perform(get("/habito/1"))
                 .andExpect(status().isOk());
 
-        Optional<Habito> habito2 = habitoController.get(1);
+        Optional<Habito> habito2 = habitoController.get(1L);
 
         assertEquals(habito.getNombre(), habito2.get().getNombre());
 
@@ -103,7 +101,7 @@ public class HabitoControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Optional<Habito> habito2 = habitoController.get(1);
+        Optional<Habito> habito2 = habitoController.get(1L);
 
         assertEquals(Optional.empty(), habito2);
 

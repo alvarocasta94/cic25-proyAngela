@@ -37,16 +37,4 @@ public class HabitoService {
 
     }
 
-    public Habito update(Habito habito) {
-
-        iHabitoRepository.save(habito);
-
-        return habito;
-
-    }
-
-    public long getContador() {
-        return this.contador;
-    }
-
 }
