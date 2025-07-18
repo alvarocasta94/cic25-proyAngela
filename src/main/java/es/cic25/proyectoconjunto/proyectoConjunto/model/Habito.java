@@ -9,9 +9,6 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Habito {
-
-    // ATRIBUTOS
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
@@ -26,7 +23,6 @@ public class Habito {
     public LocalDate[] fechasCompletadas;
 
     // Getter y setter
-
     public String getNombre() {
         return nombre;
     }
@@ -81,5 +77,10 @@ public class Habito {
 
     public void setFechasCompletadas(LocalDate[] fechasCompletadas) {
         this.fechasCompletadas = fechasCompletadas;
+    }
+
+    @Override
+    public String toString() {
+        return "Habito [id=" + id + ", nombre=" + nombre + ", estado=" + estado  + ", categoria=" + categoria + "]";
     }
 }
