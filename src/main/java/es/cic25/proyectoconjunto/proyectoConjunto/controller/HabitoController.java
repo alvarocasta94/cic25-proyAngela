@@ -1,6 +1,7 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,22 @@ public class HabitoController {
         Optional<Habito> habito = habitoService.get(id);
 
         return habito;
+
+    }
+
+    @GetMapping("/{id}")
+    public List<Habito> getAll() {
+
+        List<Habito> habitos = habitoService.getAll();
+
+        return habitos;
+
+    }
+
+        @GetMapping("/{id}")
+    public List<Habito> get() {
+
+        return habitoService.getAll();
 
     }
 

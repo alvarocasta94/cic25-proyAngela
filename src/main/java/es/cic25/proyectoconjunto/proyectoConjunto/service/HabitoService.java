@@ -1,5 +1,6 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -26,6 +27,11 @@ public class HabitoService {
         Optional<Habito> habito = habitoRepository.findById(id);
 
         return habito;
+    }
+
+        public List<Habito> getAll() {
+
+        return habitoRepository.findAll();
     }
 
     public Habito create(Habito habito) {
