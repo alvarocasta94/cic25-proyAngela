@@ -46,7 +46,6 @@ public class HabitoControllerIntegrationTest {
                 .contentType("application/json")
                 .content(habitoJson))
                 .andExpect(status().isOk());
-
     }
 
     @Test

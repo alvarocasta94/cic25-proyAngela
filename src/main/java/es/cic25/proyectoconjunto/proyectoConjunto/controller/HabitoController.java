@@ -23,7 +23,7 @@ public class HabitoController {
     private HabitoService habitoService;
 
     @GetMapping("/{id}")
-    public Optional<Habito> get(@PathVariable long id) {
+    public Optional<Habito> get(@PathVariable Long id) {
 
         Optional<Habito> habito = habitoService.get(id);
 
@@ -39,7 +39,7 @@ public class HabitoController {
         return habitos;
 
     }
-    
+
     @PostMapping
     public Habito create(@RequestBody Habito habito) {
 
@@ -49,14 +49,14 @@ public class HabitoController {
     }
 
     @PutMapping
-    public Habito upLocalDate(@RequestBody long id, Habito habitoActualizado) {
+    public Habito upLocalDate(@RequestBody Long id, Habito habitoActualizado) {
         habitoService.delete(id);
         habitoService.create(habitoActualizado);
         return habitoActualizado;
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable Long id) {
 
         habitoService.delete(id);
 

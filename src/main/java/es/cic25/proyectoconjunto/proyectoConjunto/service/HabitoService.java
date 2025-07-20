@@ -19,7 +19,7 @@ public class HabitoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HabitoService.class);
 
-    public Optional<Habito> get(long id) {
+    public Optional<Habito> get(Long id) {
 
         Optional<Habito> habito = habitoRepository.findById(id);
 
@@ -39,7 +39,7 @@ public class HabitoService {
 
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         
         habitoRepository.deleteById(id);
 

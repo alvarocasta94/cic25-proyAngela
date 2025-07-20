@@ -14,7 +14,7 @@ public class Habito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    public Long id;
 
     public String nombre;
     public String descripcion;
@@ -62,11 +62,11 @@ public class Habito {
         this.estado = estado;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
