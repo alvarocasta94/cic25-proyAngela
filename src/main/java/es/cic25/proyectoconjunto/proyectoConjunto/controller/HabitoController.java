@@ -1,6 +1,5 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,7 @@ public class HabitoController {
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("")
     public List<Habito> getAll() {
 
         List<Habito> habitos = habitoService.getAll();
@@ -40,14 +39,7 @@ public class HabitoController {
         return habitos;
 
     }
-
-        @GetMapping("/{id}")
-    public List<Habito> get() {
-
-        return habitoService.getAll();
-
-    }
-
+    
     @PostMapping
     public Habito create(@RequestBody Habito habito) {
 

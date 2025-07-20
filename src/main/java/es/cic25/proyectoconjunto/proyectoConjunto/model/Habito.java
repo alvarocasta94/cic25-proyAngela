@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 
 @Entity
 public class Habito {
@@ -21,6 +22,9 @@ public class Habito {
     private Categoria categoria;
 
     private LocalDate[] fechasCompletadas;
+
+    @Version
+    private long version;
 
     // Getter y setter
     public String getNombre() {
