@@ -9,19 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
-import es.cic25.proyectoconjunto.proyectoConjunto.repository.IHabitoRepository;
+import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 
 @Service
 public class HabitoService {
 
     @Autowired
-    private IHabitoRepository iHabitoRepository;
+    private HabitoRepository habitoRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HabitoService.class);
 
     public Optional<Habito> get(long id) {
 
-        Optional<Habito> habito = iHabitoRepository.findById(id);
+        Optional<Habito> habito = habitoRepository.findById(id);
 
         return habito;
     }
@@ -33,7 +33,7 @@ public class HabitoService {
 
     public Habito create(Habito habito) {
 
-        iHabitoRepository.save(habito);
+        habitoRepository.save(habito);
 
         return habito;
 
@@ -41,7 +41,7 @@ public class HabitoService {
 
     public void delete(long id) {
         
-        iHabitoRepository.deleteById(id);
+        habitoRepository.deleteById(id);
 
     }
 
