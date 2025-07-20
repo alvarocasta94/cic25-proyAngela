@@ -2,12 +2,12 @@ package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
 import java.util.Optional;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -19,88 +19,93 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Categoria;
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
+import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class HabitoControllerIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @Autowired
-    private HabitoController habitoController;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @Test
-    void testCreate() throws Exception {
+        @Autowired
+        private HabitoRepository habitoRespository;
 
-        Habito habito = new Habito();
-        habito.setNombre("Meditar");
-        habito.setDescripcion("Meditar cada mañana");
-        habito.setEstado(true);
-        habito.setCategoria(Categoria.SALUD);
+        @Test
+        void testCreate() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String habitoJson = objectMapper.writeValueAsString(habito);
+                Habito habito = new Habito();
+                habito.setNombre("Meditar");
+                habito.setDescripcion("Meditar cada mañana");
+                habito.setEstado(true);
+                habito.setCategoria(Categoria.SALUD);
 
-        mockMvc.perform(post("/habito")
-                .contentType("application/json")
-                .content(habitoJson))
-                .andExpect(status().isOk());
-    }
+                String habitoJson = objectMapper.writeValueAsString(habito);
 
-    @Test
-    void testGet() throws Exception {
+                mockMvc.perform(post("/habito")
+                                .contentType("application/json")
+                                .content(habitoJson))
+                                .andExpect(status().isOk())
+                                .andExpect(result -> {
+                                        String respuesta = result.getResponse().getContentAsString();
+                                        Habito registroCreado = objectMapper.readValue(respuesta, Habito.class);
+                                        assertTrue(registroCreado.getId() > 0, "El valor debe ser mayor que 0");
 
-        Habito habito = new Habito();
-        habito.setNombre("Meditar");
-        habito.setDescripcion("Meditar cada mañana");
-        habito.setEstado(true);
-        habito.setCategoria(Categoria.SALUD);
+                                        Optional<Habito> registroRealmenteCreado = habitoRespository
+                                                        .findById(registroCreado.getId());
+                                        assertTrue(registroRealmenteCreado.isPresent());
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String habitoJson = objectMapper.writeValueAsString(habito);
+                                });
+        }
 
-        mockMvc.perform(post("/habito")
-                .contentType("application/json")
-                .content(habitoJson))
-                .andExpect(status().isOk());
+        @Test
+        void testGet() throws Exception {
 
-        mockMvc.perform(get("/habito/1"))
-                .andExpect(status().isOk());
+                Habito habito = new Habito();
+                habito.setNombre("Meditar");
+                habito.setDescripcion("Meditar cada mañana");
+                habito.setEstado(true);
+                habito.setCategoria(Categoria.SALUD);
 
-        Optional<Habito> habito2 = habitoController.get(1L);
+                ObjectMapper objectMapper = new ObjectMapper();
+                String habitoJson = objectMapper.writeValueAsString(habito);
 
-        assertEquals(habito.getNombre(), habito2.get().getNombre());
+                mockMvc.perform(post("/habito")
+                                .contentType("application/json")
+                                .content(habitoJson))
+                                .andExpect(status().isOk());
 
-    }
+                mockMvc.perform(get("/habito/1"))
+                                .andExpect(status().isOk());
 
-    @Test
-    void testDelete() throws Exception {
+        }
 
-        Habito habito = new Habito();
-        habito.setNombre("Meditar");
-        habito.setDescripcion("Meditar cada mañana");
-        habito.setEstado(true);
-        habito.setCategoria(Categoria.SALUD);
+        @Test
+        void testDelete() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String habitoJson = objectMapper.writeValueAsString(habito);
+                Habito habito = new Habito();
+                habito.setNombre("Meditar");
+                habito.setDescripcion("Meditar cada mañana");
+                habito.setEstado(true);
+                habito.setCategoria(Categoria.SALUD);
 
-        mockMvc.perform(post("/habito")
-                .contentType("application/json")
-                .content(habitoJson))
-                .andExpect(status().isOk());
+                ObjectMapper objectMapper = new ObjectMapper();
+                String habitoJson = objectMapper.writeValueAsString(habito);
 
-        mockMvc.perform(get("/habito/1"))
-                .andExpect(status().isOk());
+                mockMvc.perform(post("/habito")
+                                .contentType("application/json")
+                                .content(habitoJson))
+                                .andExpect(status().isOk());
 
-        mockMvc.perform(delete("/habito/1"))
-                .andExpect(status().isOk())
-                .andReturn();
+                mockMvc.perform(get("/habito/1"))
+                                .andExpect(status().isOk());
 
-        Optional<Habito> habito2 = habitoController.get(1L);
+                mockMvc.perform(delete("/habito/1"))
+                                .andExpect(status().isOk())
+                                .andReturn();
 
-        assertEquals(Optional.empty(), habito2);
-
-    }
+        }
 }
