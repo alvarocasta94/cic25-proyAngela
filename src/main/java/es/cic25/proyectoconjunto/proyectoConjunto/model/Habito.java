@@ -1,6 +1,7 @@
 package es.cic25.proyectoconjunto.proyectoConjunto.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,23 +11,25 @@ import jakarta.persistence.Version;
 
 @Entity
 public class Habito {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    public long id;
 
-    private String nombre;
-    private String descripcion;
-    private LocalDate fechaInicio;
-    private boolean estado;
+    public String nombre;
+    public String descripcion;
+    public LocalDate fechaInicio;
+    public boolean estado;
 
-    private Categoria categoria;
+    public Categoria categoria;
 
-    private LocalDate[] fechasCompletadas;
+    public LocalDate[] fechasCompletadas;
 
     @Version
     private long version;
 
     // Getter y setter
+
     public String getNombre() {
         return nombre;
     }
@@ -84,11 +87,6 @@ public class Habito {
     }
 
     @Override
-    public String toString() {
-        return "Habito [id=" + id + ", nombre=" + nombre + ", estado=" + estado  + ", categoria=" + categoria + "]";
-    }
-
-    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -96,7 +94,6 @@ public class Habito {
         return result;
     }
 
-    //Método equals que comprueba si dos objetos son el mismo en función de si su id es igual o no
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -106,8 +103,31 @@ public class Habito {
         if (getClass() != obj.getClass())
             return false;
         Habito other = (Habito) obj;
-        if (id != other.getId())
+        if (id != other.id)
+            return false;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        if (descripcion == null) {
+            if (other.descripcion != null)
+                return false;
+        } else if (!descripcion.equals(other.descripcion))
+            return false;
+        if (fechaInicio == null) {
+            if (other.fechaInicio != null)
+                return false;
+        } else if (!fechaInicio.equals(other.fechaInicio))
+            return false;
+        if (estado != other.estado)
+            return false;
+        if (categoria != other.categoria)
+            return false;
+        if (!Arrays.equals(fechasCompletadas, other.fechasCompletadas))
             return false;
         return true;
     }
+
+    
 }

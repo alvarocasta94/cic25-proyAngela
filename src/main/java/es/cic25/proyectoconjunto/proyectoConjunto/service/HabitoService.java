@@ -14,15 +14,12 @@ import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 @Service
 public class HabitoService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HabitoService.class);
-
     @Autowired
     private HabitoRepository habitoRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HabitoService.class);
 
     public Optional<Habito> get(long id) {
-
-        LOGGER.info(String.format("Leo el hábito %d", id));
 
         Optional<Habito> habito = habitoRepository.findById(id);
 
@@ -47,4 +44,5 @@ public class HabitoService {
         habitoRepository.deleteById(id);
 
     }
+
 }
