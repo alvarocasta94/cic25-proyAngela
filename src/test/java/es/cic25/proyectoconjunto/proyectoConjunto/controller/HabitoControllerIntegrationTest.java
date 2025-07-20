@@ -2,6 +2,7 @@ package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,6 +35,7 @@ public class HabitoControllerIntegrationTest {
         @Autowired
         private HabitoRepository habitoRespository;
 
+       
         @Test
         void testCreate() throws Exception {
 
@@ -70,7 +72,6 @@ public class HabitoControllerIntegrationTest {
                 habito.setEstado(true);
                 habito.setCategoria(Categoria.SALUD);
 
-                ObjectMapper objectMapper = new ObjectMapper();
                 String habitoJson = objectMapper.writeValueAsString(habito);
 
                 mockMvc.perform(post("/habito")
@@ -92,7 +93,6 @@ public class HabitoControllerIntegrationTest {
                 habito.setEstado(true);
                 habito.setCategoria(Categoria.SALUD);
 
-                ObjectMapper objectMapper = new ObjectMapper();
                 String habitoJson = objectMapper.writeValueAsString(habito);
 
                 mockMvc.perform(post("/habito")

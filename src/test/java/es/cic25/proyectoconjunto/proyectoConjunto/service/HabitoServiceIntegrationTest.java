@@ -7,11 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
+import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 
 @SpringBootTest
 public class HabitoServiceIntegrationTest {
@@ -19,7 +21,15 @@ public class HabitoServiceIntegrationTest {
     @Autowired
     private HabitoService habitoService;
 
-      @Test
+    @Autowired
+    private HabitoRepository habitoRespository;
+
+    @AfterEach
+    void limpiarBaseDeDatos() {
+        habitoRespository.deleteAll();
+    }
+
+    @Test
     void testCreate() {
 
         String nombreHabito = "habito";
@@ -33,7 +43,7 @@ public class HabitoServiceIntegrationTest {
         assertEquals(nombreHabito, habito2.getNombre());
     }
 
-     @Test
+    @Test
     void testGet() {
         Habito habito = new Habito();
         habito.setNombre("leer");
@@ -45,7 +55,7 @@ public class HabitoServiceIntegrationTest {
         assertEquals("leer", obtenido.get().getNombre());
     }
 
-     @Test
+    @Test
     void testGetAll() {
         Habito h1 = new Habito();
         h1.setNombre("caminar");
@@ -60,7 +70,7 @@ public class HabitoServiceIntegrationTest {
         assertEquals(2, lista.size());
     }
 
-     @Test
+    @Test
     void testDelete() {
         Habito habito = new Habito();
         habito.setNombre("meditar");
