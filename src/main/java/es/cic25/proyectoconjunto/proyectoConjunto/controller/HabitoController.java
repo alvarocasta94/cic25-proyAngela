@@ -3,6 +3,8 @@ package es.cic25.proyectoconjunto.proyectoConjunto.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +21,16 @@ import es.cic25.proyectoconjunto.proyectoConjunto.service.HabitoService;
 @RestController
 @RequestMapping("/habito")
 public class HabitoController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HabitoController.class);
+
     @Autowired
     private HabitoService habitoService;
 
     @GetMapping("/{id}")
     public Optional<Habito> get(@PathVariable Long id) {
+
+        LOGGER.info("Enpoint GET /habito/id obtener hábito por id");
 
         Optional<Habito> habito = habitoService.get(id);
 
@@ -34,6 +41,7 @@ public class HabitoController {
     @GetMapping("")
     public List<Habito> getAll() {
 
+        LOGGER.info("Enpoint GET /habito obtener todos los hábitos");
         List<Habito> habitos = habitoService.getAll();
 
         return habitos;
@@ -43,6 +51,7 @@ public class HabitoController {
     @PostMapping
     public Habito create(@RequestBody Habito habito) {
 
+        LOGGER.info("Enpoint POST /habito subir hábito a BBDD");
         habito = habitoService.create(habito);
 
         return habito;
@@ -50,6 +59,8 @@ public class HabitoController {
 
     @PutMapping
     public Habito upLocalDate(@RequestBody Long id, Habito habitoActualizado) {
+
+        LOGGER.info("Enpoint PUT /habito actualizar hábito en BBDD");
         habitoService.delete(id);
         habitoService.create(habitoActualizado);
         return habitoActualizado;
@@ -57,6 +68,8 @@ public class HabitoController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+
+        LOGGER.info("Enpoint DELETE /habito/id eliminar hábito por id");
 
         habitoService.delete(id);
 

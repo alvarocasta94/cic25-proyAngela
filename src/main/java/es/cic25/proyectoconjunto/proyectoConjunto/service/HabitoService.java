@@ -21,17 +21,22 @@ public class HabitoService {
 
     public Optional<Habito> get(Long id) {
 
+        LOGGER.info(String.format("Leído el hábito con id %s", id));
+
         Optional<Habito> habito = habitoRepository.findById(id);
 
         return habito;
     }
 
-        public List<Habito> getAll() {
+    public List<Habito> getAll() {
 
+        LOGGER.info("Obteniendo todos los hábitos desde la base de datos");
         return habitoRepository.findAll();
     }
 
     public Habito create(Habito habito) {
+
+        LOGGER.info(String.format("Creación del hábito con nombre %s", habito.getNombre()));
 
         habitoRepository.save(habito);
 
@@ -40,7 +45,9 @@ public class HabitoService {
     }
 
     public void delete(Long id) {
-        
+
+        LOGGER.info(String.format("Eliminación del hábito con id %s", id));
+
         habitoRepository.deleteById(id);
 
     }
