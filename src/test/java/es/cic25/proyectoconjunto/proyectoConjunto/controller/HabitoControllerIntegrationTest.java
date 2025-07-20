@@ -26,8 +26,8 @@ import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 @AutoConfigureMockMvc
 public class HabitoControllerIntegrationTest {
 
-        @Autowired
-        private MockMvc mockMvc;
+            @Autowired
+            private MockMvc mockMvc;
 
         @Autowired
         private ObjectMapper objectMapper;
@@ -97,14 +97,14 @@ public class HabitoControllerIntegrationTest {
                                 });
         }
 
-        @Test
-        void testDeleteHabito() throws Exception {
+            @Test
+            void testDeleteHabito() throws Exception {
                 // 1. Crear y guardar un hábito
-                Habito habito = new Habito();
-                habito.setNombre("Meditar");
-                habito.setDescripcion("Meditar 10 minutos al día");
-                habito.setEstado(true);
-                habito.setCategoria(Categoria.SALUD);
+                        Habito habito = new Habito();
+                        habito.setNombre("Meditar");
+                        habito.setDescripcion("Meditar 10 minutos al día");
+                        habito.setEstado(true);
+                        habito.setCategoria(Categoria.SALUD);
 
                 habito = habitoRespository.save(habito);
 
