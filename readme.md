@@ -12,8 +12,8 @@ Este es un proyecto de gestión de hábitos utilizando Java con Spring Boot. El 
 - **Spring Data JPA**
 - **Base de datos H2 (en memoria)**
 - **Maven**
-- **Lombok** *(opcional si lo usas)*
-- **Actuator** *(para monitorización)*
+- **Lombok**
+- **Actuator**
 
 ---
 
