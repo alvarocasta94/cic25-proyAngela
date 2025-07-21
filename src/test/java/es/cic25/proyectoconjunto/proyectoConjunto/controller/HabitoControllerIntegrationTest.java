@@ -26,8 +26,8 @@ import es.cic25.proyectoconjunto.proyectoConjunto.repository.HabitoRepository;
 @AutoConfigureMockMvc
 public class HabitoControllerIntegrationTest {
 
-            @Autowired
-            private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
         @Autowired
         private ObjectMapper objectMapper;
@@ -80,7 +80,7 @@ public class HabitoControllerIntegrationTest {
                 // 2. Guardar el hábito en la BD
                 habito = habitoRespository.save(habito);
 
-                String habitoJson = objectMapper.writeValueAsString(habito);
+                // String habitoJson = objectMapper.writeValueAsString(habito);
 
                 // 3. Simular la solicitud get
                 // 3.1. Realizar la solicitud HTTP GET
@@ -97,14 +97,14 @@ public class HabitoControllerIntegrationTest {
                                 });
         }
 
-            @Test
-            void testDeleteHabito() throws Exception {
+        @Test
+        void testDeleteHabito() throws Exception {
                 // 1. Crear y guardar un hábito
-                        Habito habito = new Habito();
-                        habito.setNombre("Meditar");
-                        habito.setDescripcion("Meditar 10 minutos al día");
-                        habito.setEstado(true);
-                        habito.setCategoria(Categoria.SALUD);
+                Habito habito = new Habito();
+                habito.setNombre("Meditar");
+                habito.setDescripcion("Meditar 10 minutos al día");
+                habito.setEstado(true);
+                habito.setCategoria(Categoria.SALUD);
 
                 habito = habitoRespository.save(habito);
 
@@ -118,4 +118,5 @@ public class HabitoControllerIntegrationTest {
                 Optional<Habito> eliminado = habitoRespository.findById(id);
                 assertTrue(eliminado.isEmpty()); // Ya no debería estar presente
         }
+
 }

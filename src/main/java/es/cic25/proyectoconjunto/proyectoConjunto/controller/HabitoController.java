@@ -58,7 +58,7 @@ public class HabitoController {
     }
 
     @PutMapping
-    public Habito upLocalDate(@RequestBody Long id, Habito habitoActualizado) {
+    public Habito update(@RequestBody Long id, Habito habitoActualizado) {
 
         LOGGER.info("Enpoint PUT /habito actualizar hábito en BBDD");
         habitoService.delete(id);
@@ -72,6 +72,5 @@ public class HabitoController {
         LOGGER.info("Enpoint DELETE /habito/id eliminar hábito por id");
 
         habitoService.delete(id);
-
     }
 }
