@@ -26,7 +26,7 @@ public class Habito {
     public LocalDate[] fechasCompletadas;
 
     @Version
-    private long version;
+    private Long version;
 
     // Getter y setter
 

@@ -21,7 +21,7 @@ public class HabitoService {
 
     public Optional<Habito> get(Long id) {
 
-        LOGGER.info(String.format("Leído el hábito con id %s", id));
+        LOGGER.info(String.format("Leído el hábito con id %d", id));
 
         Optional<Habito> habito = habitoRepository.findById(id);
 
@@ -46,10 +46,22 @@ public class HabitoService {
 
     public void delete(Long id) {
 
-        LOGGER.info(String.format("Eliminación del hábito con id %s", id));
+        LOGGER.info(String.format("Eliminación del hábito con id %d", id));
 
         habitoRepository.deleteById(id);
 
+    }
+
+    public Habito update(Long id, Habito habito){
+        LOGGER.info(String.format("Actualizando el hábito con id %d", id));
+
+        if(habitoRepository.findById(id).isEmpty()){
+            LOGGER.error("El hábito a actualizar no existía previamente");
+            throw new HabitoNoExistiaError();
+        }
+        
+        habito.setId(id);
+        return habitoRepository.save(habito);
     }
 
 }

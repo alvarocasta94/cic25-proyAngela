@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.cic25.proyectoconjunto.proyectoConjunto.model.Habito;
+import es.cic25.proyectoconjunto.proyectoConjunto.service.HabitoNoExistiaError;
 import es.cic25.proyectoconjunto.proyectoConjunto.service.HabitoService;
 
 @RestController
 @RequestMapping("/habito")
 public class HabitoController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(HabitoController.class);
 
     @Autowired
@@ -35,7 +35,6 @@ public class HabitoController {
         Optional<Habito> habito = habitoService.get(id);
 
         return habito;
-
     }
 
     @GetMapping("")
@@ -45,7 +44,6 @@ public class HabitoController {
         List<Habito> habitos = habitoService.getAll();
 
         return habitos;
-
     }
 
     @PostMapping
@@ -58,12 +56,11 @@ public class HabitoController {
     }
 
     @PutMapping
-    public Habito update(@RequestBody Long id, Habito habitoActualizado) {
+    public Habito update(@RequestBody Long id, Habito habitoActualizado) throws HabitoNoExistiaError{
 
         LOGGER.info("Enpoint PUT /habito actualizar hábito en BBDD");
-        habitoService.delete(id);
-        habitoService.create(habitoActualizado);
-        return habitoActualizado;
+
+        return habitoService.update(id, habitoActualizado);
     }
 
     @DeleteMapping("/{id}")

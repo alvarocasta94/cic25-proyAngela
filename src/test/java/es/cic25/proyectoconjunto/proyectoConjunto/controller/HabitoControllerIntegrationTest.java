@@ -10,11 +10,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,14 +80,19 @@ public class HabitoControllerIntegrationTest {
                 habito.setCategoria(Categoria.SALUD);
 
                 // 2. Guardar el hábito en la BD
-                habito = habitoRespository.save(habito);
+                String habitoJson = objectMapper.writeValueAsString(habito);
 
-                // String habitoJson = objectMapper.writeValueAsString(habito);
+                // Ejecutar una solicitud post utilizando MockMvc, y guardar el resultado en un
+                // objeto MvcResult
+                MvcResult mvcResult = mockMvc
+                                .perform(post("/habito").contentType("application/json").content(habitoJson))
+                                .andReturn();
+
+                Long id = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Habito.class).getId();
 
                 // 3. Simular la solicitud get
                 // 3.1. Realizar la solicitud HTTP GET
-                mockMvc.perform(get("/habito/" + habito.getId())
-                                .contentType("application/json"))
+                mockMvc.perform(get("/habito/" + id).contentType("application/json"))
                                 // Validar el estado HTTP
                                 .andExpect(status().isOk())
                                 // Validar el contenido del JSON
@@ -119,4 +126,39 @@ public class HabitoControllerIntegrationTest {
                 assertTrue(eliminado.isEmpty()); // Ya no debería estar presente
         }
 
+        @Test
+        void testUpdateHabito() throws Exception {
+                Habito habito = new Habito();
+                habito.setNombre("Meditar");
+                habito.setDescripcion("Meditar 10 minutos al día");
+                habito.setEstado(true);
+                habito.setCategoria(Categoria.SALUD);
+
+                String habitoJson = objectMapper.writeValueAsString(habito);
+
+                // Habito habitoGuardado = habitoRespository.save(habito);
+                MvcResult mvcResult = mockMvc
+                                .perform(post("/habito").contentType("application/json").content(habitoJson))
+                                .andReturn();
+
+                Long id = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Habito.class).getId();
+
+                habito.setNombre("Leer");
+                habito.setDescripcion("Leer un libro al mes");
+                habito.setCategoria(Categoria.CREATIVIDAD);
+                habito.setId(id);
+
+                habitoJson = objectMapper.writeValueAsString(habito);
+
+                mockMvc.perform(put("/habito/" + id)
+                                .contentType("application/json")
+                                .content(habitoJson))
+                                // .andExpect(status().isOk())
+                                .andExpect(result -> {
+                                        String json = result.getResponse().getContentAsString();
+                                        Habito habitoActualizado = objectMapper.readValue(json, Habito.class);
+                                        assertEquals("Leer un libro al mes", habitoActualizado.getDescripcion());
+                                        assertEquals("Leer", habitoActualizado.getNombre());
+                                });
+        }
 }

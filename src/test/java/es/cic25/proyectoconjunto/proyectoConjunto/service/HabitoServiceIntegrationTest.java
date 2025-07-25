@@ -39,7 +39,6 @@ public class HabitoServiceIntegrationTest {
 
         Habito habito2 = habitoService.create(habito);
 
-        // habitoController.
         assertEquals(nombreHabito, habito2.getNombre());
     }
 
@@ -76,11 +75,12 @@ public class HabitoServiceIntegrationTest {
         habito.setNombre("meditar");
         Habito guardado = habitoService.create(habito);
 
-        habitoService.delete(guardado.getId());
+        Long idAComprobar = guardado.getId();
 
-        Optional<Habito> eliminado = habitoService.get(guardado.getId());
+        habitoService.delete(idAComprobar);
+
+        Optional<Habito> eliminado = habitoService.get(idAComprobar);
 
         assertFalse(eliminado.isPresent());
     }
-
 }
