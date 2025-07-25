@@ -30,6 +30,15 @@ public class Habito {
 
     // Getter y setter
 
+    
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     public String getNombre() {
         return nombre;
     }

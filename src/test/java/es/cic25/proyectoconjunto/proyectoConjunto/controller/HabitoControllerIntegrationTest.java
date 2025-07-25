@@ -138,27 +138,37 @@ public class HabitoControllerIntegrationTest {
 
                 // Habito habitoGuardado = habitoRespository.save(habito);
                 MvcResult mvcResult = mockMvc
-                                .perform(post("/habito").contentType("application/json").content(habitoJson))
+                                .perform(post("/habito")
+                                                .contentType("application/json")
+                                                .content(habitoJson))
+                                .andExpect(status().isOk())
                                 .andReturn();
 
-                Long id = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Habito.class).getId();
+                Habito habitoCreado = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                                Habito.class);
+                Long id = habitoCreado.getId();
+                Long version = habitoCreado.getVersion();
 
-                habito.setNombre("Leer");
-                habito.setDescripcion("Leer un libro al mes");
-                habito.setCategoria(Categoria.CREATIVIDAD);
-                habito.setId(id);
+                Habito habitoActualizado = new Habito();
 
-                habitoJson = objectMapper.writeValueAsString(habito);
+                habitoActualizado.setId(id);
+                habitoActualizado.setVersion(version);
+                habitoActualizado.setNombre("Leer");
+                habitoActualizado.setDescripcion("Leer un libro al mes");
+                habitoActualizado.setCategoria(Categoria.CREATIVIDAD);
+                habitoActualizado.setEstado(true);
+
+                String habitoJsonModificado = objectMapper.writeValueAsString(habitoActualizado);
 
                 mockMvc.perform(put("/habito/" + id)
                                 .contentType("application/json")
-                                .content(habitoJson))
-                                // .andExpect(status().isOk())
+                                .content(habitoJsonModificado))
+                                .andExpect(status().isOk())
                                 .andExpect(result -> {
                                         String json = result.getResponse().getContentAsString();
-                                        Habito habitoActualizado = objectMapper.readValue(json, Habito.class);
-                                        assertEquals("Leer un libro al mes", habitoActualizado.getDescripcion());
-                                        assertEquals("Leer", habitoActualizado.getNombre());
+                                        Habito updatedHabito = objectMapper.readValue(json, Habito.class);
+                                        assertEquals("Leer un libro al mes", updatedHabito.getDescripcion());
+                                        assertEquals("Leer", updatedHabito.getNombre());
                                 });
         }
 }

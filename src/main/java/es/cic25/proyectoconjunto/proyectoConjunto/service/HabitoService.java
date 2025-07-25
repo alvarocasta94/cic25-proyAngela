@@ -55,13 +55,23 @@ public class HabitoService {
     public Habito update(Long id, Habito habito){
         LOGGER.info(String.format("Actualizando el hábito con id %d", id));
 
-        if(habitoRepository.findById(id).isEmpty()){
+        Optional<Habito> habitoExistente = habitoRepository.findById(id);
+
+        if(habitoExistente.isEmpty()){
             LOGGER.error("El hábito a actualizar no existía previamente");
             throw new HabitoNoExistiaError();
         }
+        Habito habitoEnBD = habitoExistente.get();
         
-        habito.setId(id);
-        return habitoRepository.save(habito);
+        habitoEnBD.setNombre(habito.getNombre());
+        habitoEnBD.setDescripcion(habito.getDescripcion());
+        habitoEnBD.setFechaInicio(habito.getFechaInicio());
+        habitoEnBD.setEstado(habito.isEstado());
+        habitoEnBD.setCategoria(habito.getCategoria());
+        habitoEnBD.setFechasCompletadas(habito.getFechasCompletadas());
+
+
+        return habitoRepository.save(habitoEnBD);
     }
 
 }

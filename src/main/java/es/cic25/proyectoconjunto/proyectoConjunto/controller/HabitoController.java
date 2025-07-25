@@ -55,8 +55,8 @@ public class HabitoController {
         return habito;
     }
 
-    @PutMapping
-    public Habito update(@RequestBody Long id, Habito habitoActualizado) throws HabitoNoExistiaError{
+    @PutMapping("/{id}")
+    public Habito update(@PathVariable Long id, @RequestBody Habito habitoActualizado) throws HabitoNoExistiaError{
 
         LOGGER.info("Enpoint PUT /habito actualizar hábito en BBDD");
 
